@@ -103,15 +103,21 @@ def main(args):
     if not out_path.parent.exists():
         raise FileNotFoundError(f"Output directory {out_path.parent} does not exist.")
 
-    # Get API key from cli, env or dotenv
-    API_KEY = get_api_key(args.api_key)
-
     # Load query parameters from JSON file
     with open(args.query_json, "r") as file:
         query_params = json.load(file)
 
+    # API keys can be passed in the query json
+    api_key = query_params["query"].get("apiKey")
+
+    # Quick heuristic to check validity of key
+    if not api_key or len(api_key.split("-")) != 5:
+
+        # Get API key from cli, env or dotenv
+        api_key = get_api_key(args.api_key)
+
     # Add the API key to the query parameters
-    query_params["apiKey"] = API_KEY
+    query_params["apiKey"] = api_key
 
     all_articles = []
     page = 1
