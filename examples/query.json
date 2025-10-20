@@ -37,6 +37,5 @@
     "articlesSortBy": "date",
     "includeArticleSocialScore": true,
     "includeArticleConcepts": true,
-    "includeArticleImage": true,
-    "apiKey": "MY_API_KEY"
+    "includeArticleImage": true
 }
